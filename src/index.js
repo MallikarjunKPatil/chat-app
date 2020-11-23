@@ -15,16 +15,27 @@ app.use(express.static(publicDirectoryPath))
 io.on('connection', (socket) => {
     console.log('New Websocket connection');
 
+    //Sends welcome message on new connection
     socket.emit('message', 'Welcome!')
-    socket.broadcast.emit('message','A new user has joined the chat.')
 
+    //Brodcasts message to all connected users when new user joins chat
+    socket.broadcast.emit('message', 'A new user has joined the chat.')
+
+    //Sends message to all connected users from user
     socket.on('sendMessage', (data) => {
         io.emit('message', data)
     })
 
+    //Sends message to all connected users when user disconnected from chat
     socket.on('disconnect', () => {
-        io.emit('message','A user has left the chat.')
+        io.emit('message', 'A user has left the chat.')
     })
+
+    //Sends Location to all connected users when user shares location
+    socket.on('sendLocation', (sendLocation) => {
+        io.emit('message', `https://google.com/maps?q=Sha${sendLocation.lat},${sendLocation.long}`)
+    })
+
 })
 
 server.listen(port, () => {
