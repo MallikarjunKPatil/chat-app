@@ -22,8 +22,9 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message', 'A new user has joined the chat.')
 
     //Sends message to all connected users from user
-    socket.on('sendMessage', (data) => {
+    socket.on('sendMessage', (data, callback) => {
         io.emit('message', data)
+        callback()
     })
 
     //Sends message to all connected users when user disconnected from chat
@@ -32,8 +33,9 @@ io.on('connection', (socket) => {
     })
 
     //Sends Location to all connected users when user shares location
-    socket.on('sendLocation', (sendLocation) => {
-        io.emit('message', `https://google.com/maps?q=Sha${sendLocation.lat},${sendLocation.long}`)
+    socket.on('sendLocation', (sendLocation, callback) => {
+        io.emit('message', `https://google.com/maps?q=${sendLocation.lat},${sendLocation.long}`)
+        callback()
     })
 
 })
