@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
     //Sends Location to all connected users when user shares location
     socket.on('sendLocation', (sendLocation, callback) => {
-        io.emit('message', `https://google.com/maps?q=${sendLocation.lat},${sendLocation.long}`)
+        io.emit('locationMessage', `https://google.com/maps?q=${sendLocation.lat},${sendLocation.long}`)
         callback()
     })
 
