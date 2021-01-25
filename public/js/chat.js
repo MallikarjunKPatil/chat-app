@@ -32,7 +32,7 @@ $sendlocation.addEventListener('click', () => {
         return alert('Geolocaion not supported')
     }
 
-    $sendLocation.setAttribute('disabled', 'disabled')
+    $sendlocation.setAttribute('disabled', 'disabled')
 
     navigator.geolocation.getCurrentPosition((position) => {
 
@@ -42,7 +42,7 @@ $sendlocation.addEventListener('click', () => {
         }
 
         socket.emit('sendLocation', locationData, () => {
-            $sendLocation.removeAttribute('disabled')
+            $sendlocation.removeAttribute('disabled')
             console.log('Location shared!');
         })
     })
